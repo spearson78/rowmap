@@ -12,7 +12,7 @@ go get github.com/spearson78/rowmap
 
 Define a struct and a mapper from an sql.Rows to your struct
 
-```
+```go
 type TestStruct struct {
 	Id  int64
 	Col string
@@ -27,6 +27,6 @@ func testStructMapper(row *sql.Rows) (TestStruct, error) {
 
 Execute queries
 
-```
+```go
 entities, err := Query(db,testStructMapper, "SELECT ID,COL FROM TEST WHERE ID IN(?,?) ORDER BY ID DESC", 1, 2)
 ```
