@@ -3,6 +3,7 @@ package rowmap
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"testing"
 )
 
@@ -180,7 +181,7 @@ func TestStmtQueryRowNoRows(t *testing.T) {
 	}
 
 	_, err = stmt.QueryRow()
-	if err != sql.ErrNoRows {
+	if !errors.Is(err, sql.ErrNoRows) {
 		t.Fatal("err != sql.ErrNoRows")
 	}
 }

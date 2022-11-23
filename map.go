@@ -6,7 +6,7 @@ import (
 
 func mapRows[E any](mapper MapperFunc[E], rows *sql.Rows, err error) ([]E, error) {
 	if err != nil {
-		return nil, err
+		return nil, Wrap(err, mapper)
 	}
 	defer rows.Close()
 
@@ -15,7 +15,7 @@ func mapRows[E any](mapper MapperFunc[E], rows *sql.Rows, err error) ([]E, error
 
 		e, err := mapper(rows)
 		if err != nil {
-			return nil, err
+			return nil, Wrap(err, mapper)
 		}
 
 		entities = append(entities, e)
@@ -33,7 +33,7 @@ func mapSingleRow[E any](mapper MapperFunc[E], rows *sql.Rows, err error) (E, er
 
 	if len(results) == 0 {
 		var empty E
-		return empty, sql.ErrNoRows
+		return empty, Wrap(sql.ErrNoRows, mapper)
 	}
 
 	return results[0], nil

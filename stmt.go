@@ -7,13 +7,13 @@ import (
 
 //MappedStmt is a prepared statement. A MappedStmt is safe for concurrent use by multiple goroutines.
 
-//If a MappedStmt is prepared on a Tx or Conn, it will be bound to a single underlying connection forever. If the Tx or Conn closes, the MappedStmt will become unusable and all operations will return an error. If a MappedStmt is prepared on a DB, it will remain usable for the lifetime of the DB. When the Stmt needs to execute on a new underlying connection, it will prepare itself on the new connection automatically.
+// If a MappedStmt is prepared on a Tx or Conn, it will be bound to a single underlying connection forever. If the Tx or Conn closes, the MappedStmt will become unusable and all operations will return an error. If a MappedStmt is prepared on a DB, it will remain usable for the lifetime of the DB. When the Stmt needs to execute on a new underlying connection, it will prepare itself on the new connection automatically.
 type MappedStmt[E any] struct {
 	stmt   *sql.Stmt
 	mapper MapperFunc[E]
 }
 
-//Close closes the MappedStmt
+// Close closes the MappedStmt
 func (m *MappedStmt[E]) Close() error {
 	return m.stmt.Close()
 }
@@ -40,9 +40,9 @@ func (m *MappedStmt[E]) QueryRow(args ...any) (E, error) {
 	return m.QueryRowContext(context.Background(), args...)
 }
 
-//PrepareContext creates a prepared statement for later queries whose results will be mapped using the provided MapperFunc. Multiple queries or executions may be run concurrently from the returned statement. The caller must call the statement's Close method when the statement is no longer needed.
+// PrepareContext creates a prepared statement for later queries whose results will be mapped using the provided MapperFunc. Multiple queries or executions may be run concurrently from the returned statement. The caller must call the statement's Close method when the statement is no longer needed.
 //
-//The provided context is used for the preparation of the statement, not for the execution of the statement.
+// The provided context is used for the preparation of the statement, not for the execution of the statement.
 func PrepareContext[E any](ctx context.Context, db Queryable, mapper MapperFunc[E], query string) (*MappedStmt[E], error) {
 	stmt, err := db.PrepareContext(ctx, query)
 	if err != nil {
@@ -55,7 +55,7 @@ func PrepareContext[E any](ctx context.Context, db Queryable, mapper MapperFunc[
 	}, nil
 }
 
-//PrepareContext creates a prepared statement for later queries whose results will be mapped using the provided MapperFunc. Multiple queries or executions may be run concurrently from the returned statement. The caller must call the statement's Close method when the statement is no longer needed.
+// PrepareContext creates a prepared statement for later queries whose results will be mapped using the provided MapperFunc. Multiple queries or executions may be run concurrently from the returned statement. The caller must call the statement's Close method when the statement is no longer needed.
 func Prepare[E any](db Queryable, mapper MapperFunc[E], query string) (*MappedStmt[E], error) {
 	return PrepareContext(context.Background(), db, mapper, query)
 }

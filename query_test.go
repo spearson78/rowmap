@@ -3,6 +3,7 @@ package rowmap
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 	"testing"
 
@@ -230,7 +231,7 @@ func TestQueryRowNoRows(t *testing.T) {
 	}
 
 	_, err = QueryRow(db, testStructMapper, "SELECT ID,COL FROM TEST WHERE ID IS NULL ORDER BY ID")
-	if err != sql.ErrNoRows {
+	if !errors.Is(err, sql.ErrNoRows) {
 		t.Fatal("err != sql.ErrNoRows")
 	}
 }
