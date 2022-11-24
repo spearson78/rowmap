@@ -135,9 +135,7 @@ func TestQueryConn(t *testing.T) {
 		return
 	}
 
-	conn, err := db.Conn(context.Background())
-
-	entities, err := Query(conn, testStructMapper, "SELECT ID,COL FROM TEST WHERE ID IN(?,?) ORDER BY ID DESC", 1, 2)
+	entities, err := Query(db, testStructMapper, "SELECT ID,COL FROM TEST WHERE ID IN(?,?) ORDER BY ID DESC", 1, 2)
 	checkBasicQueryResults(t, entities, err)
 }
 

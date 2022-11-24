@@ -13,6 +13,8 @@ github.com/mattn/go-sqlite3 v1.14.10/go.mod h1:NyWgC/yNuGj7Q9rpYnZvas74GogHl5/Z4
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0 h1:OdAsTTz6OkFY5QxjkYwrChwuRruF69c169dPK26NUlk=
 github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
+github.com/spearson78/fault v0.4.3-floc h1:9b4C2CJohDdP+PbZrLnWVm+4Cg3LMGNVcv7FL2CaqaU=
+github.com/spearson78/fault v0.4.3-floc/go.mod h1:ykAz97glbxwopwRqAPfQMy8/Y4O+s3c6YtXwaSbxnEg=
 github.com/spearson78/fsql v0.0.0-20221123161511-ccdcddf3d8ad h1:wyp8TElxuSp7v1a1/QcqPiQyfZAuat6zzQQut6+nH80=
 github.com/spearson78/fsql v0.0.0-20221123161511-ccdcddf3d8ad/go.mod h1:oIhRnOFszkdBKq9wK7OqKGa5CKfc83alV3Yh6186cYY=
 github.com/spearson78/fsql v0.0.0-20221123181308-1aefbbc2f445 h1:I6TIx1PKq/j9mViWbI/PHjNSrKYc1t6ZnkiwNWq1/PM=
@@ -21,6 +23,8 @@ github.com/spearson78/fsql v0.0.0-20221123182140-b6c3d4b9c6a8 h1:D4hftRmzBPEl98e
 github.com/spearson78/fsql v0.0.0-20221123182140-b6c3d4b9c6a8/go.mod h1:oIhRnOFszkdBKq9wK7OqKGa5CKfc83alV3Yh6186cYY=
 github.com/spearson78/fsql v0.0.1 h1:zKbyim2jZdAHFUMPx/pNDtiuw2xbWUel8Hx+LlD3WNM=
 github.com/spearson78/fsql v0.0.1/go.mod h1:oIhRnOFszkdBKq9wK7OqKGa5CKfc83alV3Yh6186cYY=
+github.com/spearson78/fsql v0.0.2 h1:luD+wxdS2R3R+2Sc7N7aUf6UCxknxzQsiK/oqX1inWU=
+github.com/spearson78/fsql v0.0.2/go.mod h1:B/lpHYHNjUdP01QRkau059a7RmJ04xC0j1u5KvKZ7vA=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.4.1/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

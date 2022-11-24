@@ -4,11 +4,12 @@ import (
 	"database/sql"
 
 	"github.com/Southclaws/fault"
+	"github.com/Southclaws/fault/floc"
 )
 
 func mapRows[E any](mapper MapperFunc[E], rows *sql.Rows, err error) ([]E, error) {
 	if err != nil {
-		return nil, fault.Wrap(err, With(mapper))
+		return nil, fault.Wrap(err, With(mapper), floc.WithDepth(2))
 	}
 	defer rows.Close()
 
@@ -17,7 +18,7 @@ func mapRows[E any](mapper MapperFunc[E], rows *sql.Rows, err error) ([]E, error
 
 		e, err := mapper(rows)
 		if err != nil {
-			return nil, fault.Wrap(err, With(mapper))
+			return nil, fault.Wrap(err, With(mapper), floc.WithDepth(2))
 		}
 
 		entities = append(entities, e)
@@ -35,7 +36,7 @@ func mapSingleRow[E any](mapper MapperFunc[E], rows *sql.Rows, err error) (E, er
 
 	if len(results) == 0 {
 		var empty E
-		return empty, fault.Wrap(sql.ErrNoRows, With(mapper))
+		return empty, fault.Wrap(sql.ErrNoRows, With(mapper), floc.WithDepth(2))
 	}
 
 	return results[0], nil
