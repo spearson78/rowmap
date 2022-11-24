@@ -19,6 +19,8 @@ github.com/spearson78/fsql v0.0.0-20221123181308-1aefbbc2f445 h1:I6TIx1PKq/j9mVi
 github.com/spearson78/fsql v0.0.0-20221123181308-1aefbbc2f445/go.mod h1:oIhRnOFszkdBKq9wK7OqKGa5CKfc83alV3Yh6186cYY=
 github.com/spearson78/fsql v0.0.0-20221123182140-b6c3d4b9c6a8 h1:D4hftRmzBPEl98ekkQdfyBjajJGYR4FYnTGiNfZbmg4=
 github.com/spearson78/fsql v0.0.0-20221123182140-b6c3d4b9c6a8/go.mod h1:oIhRnOFszkdBKq9wK7OqKGa5CKfc83alV3Yh6186cYY=
+github.com/spearson78/fsql v0.0.1 h1:zKbyim2jZdAHFUMPx/pNDtiuw2xbWUel8Hx+LlD3WNM=
+github.com/spearson78/fsql v0.0.1/go.mod h1:oIhRnOFszkdBKq9wK7OqKGa5CKfc83alV3Yh6186cYY=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.4.1/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
