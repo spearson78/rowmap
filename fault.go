@@ -28,7 +28,7 @@ func Wrap[E any](err error, mapper MapperFunc[E]) error {
 	}
 }
 
-func With[E any](sql string, mapper MapperFunc[E]) func(error) error {
+func With[E any](mapper MapperFunc[E]) func(error) error {
 	return func(err error) error {
 		return Wrap(err, mapper)
 	}

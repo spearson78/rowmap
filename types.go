@@ -12,6 +12,12 @@ type MapperFunc[E any] func(row *sql.Rows) (E, error)
 type Queryable interface {
 	QueryContext(context.Context, string, ...any) (*sql.Rows, error)
 	QueryRowContext(context.Context, string, ...any) *sql.Row
+}
 
+type prepare interface {
+	Prepare(query string) (*sql.Stmt, error)
+}
+
+type prepareContext interface {
 	PrepareContext(ctx context.Context, query string) (*sql.Stmt, error)
 }

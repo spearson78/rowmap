@@ -3,6 +3,8 @@ package rowmap
 import (
 	"context"
 	"database/sql"
+
+	"github.com/Southclaws/fault"
 )
 
 //MappedStmt is a prepared statement. A MappedStmt is safe for concurrent use by multiple goroutines.
@@ -26,7 +28,8 @@ func (m *MappedStmt[E]) QueryContext(ctx context.Context, args ...any) ([]E, err
 
 // Query executes a query, typically a SELECT that returns entities using the mapper function provided when preparing the statement.
 func (m *MappedStmt[E]) Query(args ...any) ([]E, error) {
-	return m.QueryContext(context.Background(), args...)
+	rows, err := m.stmt.Query(args...)
+	return mapRows(m.mapper, rows, err)
 }
 
 // QueryRowContext executes a query that is expected to return at most one row. The result row is mapped to an entity using the mapper function provided when preparing the statement. The args are for any placeholder parameters in the query. If the query selects no rows sql.ErrRows is returned. If multipe rows are returnd the frst row is mapped and returned.
@@ -37,16 +40,17 @@ func (m *MappedStmt[E]) QueryRowContext(ctx context.Context, args ...any) (E, er
 
 // QueryRow executes a query that is expected to return at most one row. The result row is mapped to an entity using the mapper function provided when preparing the statement. The args are for any placeholder parameters in the query. If the query selects no rows sql.ErrRows is returned. If multipe rows are returnd the frst row is mapped and returned.
 func (m *MappedStmt[E]) QueryRow(args ...any) (E, error) {
-	return m.QueryRowContext(context.Background(), args...)
+	rows, err := m.stmt.Query(args...)
+	return mapSingleRow(m.mapper, rows, err)
 }
 
 // PrepareContext creates a prepared statement for later queries whose results will be mapped using the provided MapperFunc. Multiple queries or executions may be run concurrently from the returned statement. The caller must call the statement's Close method when the statement is no longer needed.
 //
 // The provided context is used for the preparation of the statement, not for the execution of the statement.
-func PrepareContext[E any](ctx context.Context, db Queryable, mapper MapperFunc[E], query string) (*MappedStmt[E], error) {
+func PrepareContext[E any](ctx context.Context, db prepareContext, mapper MapperFunc[E], query string) (*MappedStmt[E], error) {
 	stmt, err := db.PrepareContext(ctx, query)
 	if err != nil {
-		return nil, err
+		return nil, fault.Wrap(err, With(mapper))
 	}
 
 	return &MappedStmt[E]{
@@ -56,6 +60,14 @@ func PrepareContext[E any](ctx context.Context, db Queryable, mapper MapperFunc[
 }
 
 // PrepareContext creates a prepared statement for later queries whose results will be mapped using the provided MapperFunc. Multiple queries or executions may be run concurrently from the returned statement. The caller must call the statement's Close method when the statement is no longer needed.
-func Prepare[E any](db Queryable, mapper MapperFunc[E], query string) (*MappedStmt[E], error) {
-	return PrepareContext(context.Background(), db, mapper, query)
+func Prepare[E any](db prepare, mapper MapperFunc[E], query string) (*MappedStmt[E], error) {
+	stmt, err := db.Prepare(query)
+	if err != nil {
+		return nil, fault.Wrap(err, With(mapper))
+	}
+
+	return &MappedStmt[E]{
+		stmt:   stmt,
+		mapper: mapper,
+	}, nil
 }

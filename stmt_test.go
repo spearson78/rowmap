@@ -55,7 +55,7 @@ func TestStmtQueryConn(t *testing.T) {
 
 	conn, err := db.Conn(context.Background())
 
-	stmt, err := Prepare(conn, testStructMapper, "SELECT ID,COL FROM TEST WHERE ID IN (?,?) ORDER BY ID DESC")
+	stmt, err := PrepareContext(context.Background(), conn, testStructMapper, "SELECT ID,COL FROM TEST WHERE ID IN (?,?) ORDER BY ID DESC")
 	if err != nil {
 		t.Fatalf("Prepare failed  %v", err)
 		return
